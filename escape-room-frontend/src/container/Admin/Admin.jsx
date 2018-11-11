@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminCode from '../../component/Admin/AdminCode';
 import AdminTeams from '../../component/Admin/AdminTeams';
+import AdminMaint from '../../component/Admin/AdminMaint';
 import TeamStatus from '../../component/Team/TeamStatus';
 
 /* openTab()
@@ -58,7 +59,7 @@ const Admin = () => (
 							<AdminTeams />
 						</div>
 						<div id="tabCMaint" class="tab-pane fade">
-							<p>Hey You</p>
+							<AdminMaint />
 						</div>
 					</div>
 				</div>

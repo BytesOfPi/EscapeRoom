@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../../container/Login/Login';
 import Game from '../../container/Game/Game';
 import Admin from '../../container/Admin/Admin';
+import SampleDND from '../../container/Sample/SampleDND';
 
 import '../../resources/css/w3-theme-deep-purple.css';
 import '../../resources/css/w3.css';
@@ -28,6 +29,7 @@ export const Main = () => (
 			<Route exact path='/' component={Login}/>
 			<Route path='/game' component={Game}/>
 			<Route path='/admin' component={Admin}/>
+			<Route path='/dnd' component={SampleDND}/>
 		</Switch>
 	</main>
 );

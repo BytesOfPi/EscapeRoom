@@ -5,9 +5,10 @@ import ReactModal from 'react-modal';
 
 // ReactModal.setAppElement('#root');
 
-export const TeamModal = (modalIsOpen, team) => {
-	return (<ReactModal 
-		isOpen={modalIsOpen}
-		contentLabel="Minimal Modal Example"
-	><div class={`bg-${team.color}`}><h1>Team {team.teamName} won!!!</h1></div></ReactModal>);
+const TeamModal = (props) => {
+	return (<ReactModal
+		{...props} 
+		contentLabel={`${props.teamName} Team Won`}
+	><div ><h1>Team {props.teamName} won!!!</h1></div></ReactModal>);
 };
+export default TeamModal;

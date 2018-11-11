@@ -3,6 +3,8 @@ import ReactModal from 'react-modal';
 
 import { Header, Main } from './component/routes/routes';
 
+import 'rc-slider/assets/index.css';
+import 'rc-tooltip/assets/bootstrap.css';
 import './resources/css/game.css';
 import './resources/css/bootstrap.min.css';
 import './App.css';

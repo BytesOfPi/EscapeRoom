@@ -50,15 +50,16 @@ class Login extends React.Component {
 		//---------------------------------------------------------------------
 		// Build Attempt
 		const attempt = {
-			team: this.refs.team.value,
-			player: this.refs.player.value.trim(),
-			creds: this.refs.creds.value.trim()
+			player: this.refs.player.value.trim() // ,
+			//team: this.refs.team.value,
+			//creds: this.refs.creds.value.trim()
 		};
 		console.log(attempt);
 
 		//---------------------------------------------------------------------
 		// Backend Login attempt
-		fetch('api/game/login', {
+		// fetch('api/game/login', {
+		fetch('api/game/loginRandom', {
 			method: 'POST',
 			mode: 'cors',
 			headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -94,6 +95,7 @@ class Login extends React.Component {
 			return (<Redirect
 				to={{
 					pathname: '/admin'
+					// pathname: '/dnd'
 				}} />);
 		}
 		if( this.state.playGame ) {
@@ -107,20 +109,20 @@ class Login extends React.Component {
 		}
 		return (<div className="bs-docs-section">
 			<div class="col-lg-6">
+				{/*
 				<div class="form-group row">
                     Team: {this.genSelect()}
 				</div>
 				<div class="form-group row">
                     Team Password: <input type="password" class="form-control" id="creds" ref="creds" maxlength="50" placeholder="Password" onKeyPress={this.onKeyPress}></input>
 				</div>
+				*/ }
 				<div class="form-group row">
                     Name: <input type="text" class="form-control" id="player" ref="player" maxlength="50" placeholder="Enter your name" onKeyPress={this.onKeyPress}/><br />
 				</div>
 				<div class="form-group row">
 					<button type="button" className="btn btn-primary" onClick={this.handleLogin} >Submit</button>
 				</div>
-                
-                
 			</div>
 		</div>);
 	}

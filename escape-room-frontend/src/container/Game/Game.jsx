@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import questions from '../../resources/json/questions.json';
 import GameGear from '../../component/GameGear/GameGear';
@@ -17,7 +18,8 @@ class Game extends React.Component {
 				total: 5,
 				teams: [{ teamName: 'Orange', correct: 4 }, { teamName: 'Tan', correct: 1 } ]
 			},
-			questions: questions
+			questions: questions,
+			rejected: false
 		};
 		//---------------------------------------------------------------------
 		// Bind functions to this component
@@ -28,13 +30,13 @@ class Game extends React.Component {
 	//---------------------------------------------------------------------
 	// When you reach the page...
 	componentWillMount() {
-		console.log('Nate');
 		this.getQuestions();
+		this.getPlayer();
 	}
 	//---------------------------------------------------------------------
 	// When you unmount component...
 	componentWillUnmount() {
-		console.log('Admin Timer clear...');
+		console.log('Game Timer clear...');
 		clearInterval(this.interval);
 	}
 	//---------------------------------------------------------------------
@@ -42,13 +44,28 @@ class Game extends React.Component {
 	componentDidMount() {
 		//---------------------------------------------------------------------
 		// Start Timer
-		console.log('Admin Timer started...');
+		console.log('Game Timer started...');
 		this.interval = setInterval(() => this.timedEvent(), 7000);
 	}
 
 	//####################
 	// WORKER
 	//####################
+	getPlayer() {
+		const {playerId, playerName, teamId, teamName} = this.state;
+		fetch(`api/team/player/get/${playerId}`)
+			.then(res => ( res.ok ) ? res.json() : [{name: 'FAILED TO LOAD'}])
+			.then(data => {
+				if (data === undefined || data.id === 0 ) {
+					this.setState({rejected: true});
+				}
+				else if ( data.teamId !== teamId || data.name !== playerName || data.teamName !== teamName ) {
+					this.setState({teamId: data.teamId, teamName: data.teamName, playerName: data.name });
+				}
+			})
+			.catch( error => console.log(error) );
+		
+	}
 	getQuestions() {
 		fetch('api/game/questions')
 			.then(res => ( res.ok ) ? res.json() : [{name: 'FAILED TO LOAD'}])
@@ -58,6 +75,7 @@ class Game extends React.Component {
 	timedEvent() {
 		console.log('Game Timer run...');
 		this.getQuestions();
+		this.getPlayer();
 	}
 
 	//####################
@@ -111,6 +129,13 @@ class Game extends React.Component {
 	}
 
 	render() {
+		if (this.state.rejected) {
+			console.log('You\'ve been kicked!');
+			return (<Redirect
+				to={{
+					pathname: '/'
+				}} />);
+		}
 		return (
 			<div className="bs-docs-section">
 				<div className="row"><div className="page-header"><h2>Game Page</h2></div></div>

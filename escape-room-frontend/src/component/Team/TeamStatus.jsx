@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ReactModal from 'react-modal';
-// import TeamModal from './TeamModal';
+//import ReactModal from 'react-modal';
+import TeamModal from './TeamModal';
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 
 // ReactModal.setAppElement('#root');
@@ -80,16 +80,19 @@ class TeamStatus extends React.Component {
 	}
 
 	render() {
-		const modalIsOpen = this.state.winner.teamName !== undefined;
+		const isOpen = this.state.winner.teamName !== undefined;
 		const {color, teamName} = this.state.winner;
-		const classModal = `Modal bg-${color}`;
-		const classOverlay = 'Overlay bg-grey';
+		const className = `Modal bg-${color}`;
+		const overlayClassName = 'Overlay bg-grey';
+		const props = { isOpen, className, overlayClassName, teamName };
+
 		return (<div className="bs-docs-section">
-			<ReactModal 
+			<TeamModal {...props} />
+			{/* <ReactModal 
 				isOpen={modalIsOpen}
 				contentLabel="Team Won" 
 				className={classModal}
-				overlayClassName={classOverlay}><div ><h1>Team {teamName} won!!!</h1></div></ReactModal>
+				overlayClassName={classOverlay}><div ><h1>Team {teamName} won!!!</h1></div></ReactModal> */}
 			{this.genBars(this.state.teams, this.state.total)}</div>);
 		//<ReactModal 
 		//	isOpen={modalIsOpen}

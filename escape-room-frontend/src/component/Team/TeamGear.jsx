@@ -1,77 +1,88 @@
 import React from 'react';
+import uuid from 'uuid/v1';
+import PlayerInput from './PlayerInput';
+import PlayerSource from './PlayerSource';
+import TeamTarget from './TeamTarget';
 
 class TeamGear extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			id: props.id,
-			header: props.header,
-			title: props.title,
-			text: props.text,
-			taValue: ''
-		};
+		this.state = {};
 
 		//-------------------------------------------------------
 		// Bind methods to this object
-		this.handleChangeTA = this.handleChangeTA.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-	componentDidUpdate(prevProps) {
-		// Typical usage (don't forget to compare props):
-		if (this.props.userID !== prevProps.userID) {
-			this.fetchData(this.props.userID);
-		}
-	}
-
-
-	//-------------------------------------------------------
-	// Handle changes to this control
-	handleChangeTA(event) {
-		this.setState({ taValue: event.target.value });
+		this.handlePlayerUpdate = this.handlePlayerUpdate.bind(this);
+		this.handlePlayerDelete = this.handlePlayerDelete.bind(this);
+		this.handlePlayerDrop = this.handlePlayerDrop.bind(this);
 	}
 
 	//-------------------------------------------------------
 	// Handle changes to this control
-	handleSubmit() {
+	handlePlayerUpdate(playerId) {
+		// TODO
+		const name = document.getElementById(`player${playerId}`).value;
+		const teamId = this.props.id;
+
+		console.log(`Update player [${playerId}]`);
+		this.props.handlePlayerUpdate( playerId, teamId, name );
+	}
+
+	//-------------------------------------------------------
+	// Handle changes to this control
+	handlePlayerDelete(playerId) {
 		//-------------------------------------------------------
 		// Pass back controls state values
-		this.props.handleSubmit(this.state);
+		this.props.handlePlayerDelete( playerId );
 	}
 
-	findFlag(searchString, searchKey) {
-		return (searchString !== undefined && searchString.indexOf(searchKey) > -1);
+	//-------------------------------------------------------
+	// Handle changes to this control
+	handlePlayerDrop(playerId, teamId) {
+		//-------------------------------------------------------
+		// Log the change
+		console.log(`Player ${playerId} dropped on team ${teamId}`);
+		//-------------------------------------------------------
+		// Let parent handle the DND
+		this.props.handlePlayerDrop( playerId, teamId );
 	}
 
-	render() {
-		const searchKey = `#${this.props.teamId}#`;
-		const submit = this.findFlag(this.props.teamSubmit, searchKey);
-		const success = this.findFlag(this.props.teamCorrect, searchKey);
-		const fail = this.findFlag(this.props.teamFail, searchKey);
-        
-		let gearClass = 'card game_gear';
-		let btnClass = 'btn btn-primary';
-		if( success ) {
-			gearClass = `${gearClass} text-white bg-success`;
-			btnClass = `${btnClass} disabled`;
-		}
-		else if (fail) {
-			gearClass = `${gearClass} text-white bg-danger`;
-		}
-		else if (submit) {
-			gearClass = `${gearClass} text-white bg-warning`;
-			btnClass = `${btnClass} disabled`;
-		}
-		else {
-			gearClass = `${gearClass} w3-theme-d1`;
-		}
-		return (<div className={gearClass} >
-			<div className="card-header">{this.state.header}</div>
+	genTeamMembers(players) {
+		return players.map( player => <tr >
+			{
+			// <th scope="row"><input type='text' id={`player${player.id}`} value={player.name} /></th>
+			// <th scope="row"><PlayerInput id={player.id} inputValue={player.name} /></th>
+			}
+			<th scope="row"><PlayerInput id={player.id} inputValue={player.name} />
+				<PlayerSource player={{ id: player.id, name: player.name }} onDrop={this.handlePlayerDrop}/></th>
+			<td><button type="button" className="btn btn-primary" onClick={(e) => this.handlePlayerUpdate(player.id, e)}>Update</button></td>
+			<td><button type="button" className="btn btn-danger" onClick={(e) => this.handlePlayerDelete(player.id, e)}>Delete</button></td>
+		</tr>);
+	}
+
+	render() {        
+		const gearClass = `card game_gear bg-${this.props.color}`;
+
+		return (<div className={gearClass} key={uuid()}>
+			<div className="card-header">{this.props.name} Team</div>
 			<div className="card-body">
-				<h4 className="card-title">{this.state.title}</h4>
+				<h4 className="card-title">Modify {this.props.name}</h4>
 				<div className="card-text">
-					<label>{this.state.text}</label>
-					<textarea className="form-control" value={this.state.taValue} onChange={this.handleChangeTA}></textarea>
-					<button type="button" className={btnClass}  disabled={success || submit} onClick={this.handleSubmit}>Submit</button>
+					<TeamTarget team={{ id: this.props.id, name: this.props.name }} />
+					<table class="table table-hover">
+						<col width="60%" />
+						<col width="20%" />
+						<col width="20%" />
+						<thead>
+							<tr>
+								<th scope="col" width>Player</th>
+								<th scope="col">&nbsp;</th>
+								<th scope="col">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							{this.genTeamMembers(this.props.players)}
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>);
