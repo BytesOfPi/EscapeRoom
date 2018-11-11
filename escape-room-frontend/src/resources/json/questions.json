@@ -1,0 +1,8 @@
+[
+    {
+        "id": "q1",
+        "header": "Question #1",
+        "title": "Reversi",
+        "text": "Code something that will take in a string and output that string in reverse"
+    }
+]

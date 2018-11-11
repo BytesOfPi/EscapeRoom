@@ -1,0 +1,18 @@
+version: '3'
+networks:
+  default:
+    labels:
+      - "com.docker.ucp.access.label=escape-room"
+services:
+  escape-room:
+    image: escape-room-frontend:latest
+    environment:
+      KEY: "value"
+      BACKEND_URL: "http://escape-room-back:8080/api"
+    build: .
+    ports:
+      - "8000:80"
+  escape-room-back:
+    image: escape-room-backend:latest
+  # redis:
+  #   image: redis:alpine

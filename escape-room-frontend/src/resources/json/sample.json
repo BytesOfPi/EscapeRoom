@@ -1,0 +1,25 @@
+{
+    "teams": [
+        {
+            "name": "Red",
+            "cred": "abc",
+            "players": [],
+            "correct": [],
+            "attempts": []
+        },
+        {
+            "name": "Green",
+            "cred": "123",
+            "players": [],
+            "correct": [],
+            "attempts": []
+        }
+    ],
+    "board": {
+        game: 1,
+        questions: {
+
+        }
+    }
+}
+

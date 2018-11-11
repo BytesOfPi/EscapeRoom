@@ -1,0 +1,18 @@
+Enhancements
+	-) As Players log in, randomly disperse into teams
+	-) Upon winning, lock all submissions and display winning team modal
+	-) Admin - Display Players by teams
+	-) Admin - Rename players
+	-) Admin - Kick players
+
+
+Display team status gear
+
+	Lock questions locked for team
+	Unlock questions not locked for team
+
+
+Type in phrase & hit submit
+	handleSubmit
+		createAttempt
+		

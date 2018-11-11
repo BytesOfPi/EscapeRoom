@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/api"
+  tomcat:
+    accesslog:
+      buffered: true
+      directory: ${TOMCAT_ACCESSLOG_DIR:e:/temp}
+      enabled: ${TOMCAT_ACCESSLOG_ENABLED:true}
+      file-date-format: .yyyy-MM-dd
+      pattern: "%h %l %u %t '%r' %s %b %D"
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: true
+      rotate: true
+      suffix: .log
+spring:
+  datasource:
+    # url: jdbc:derby:memory:testdb
+    # username: sa
+    # password: sa
+    # driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:h2:mem:bootapp;DB_CLOSE_DELAY=-1
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+#   jpa:
+#     properties:
+#       hibernate:
+#         dialect: org.hibernate.dialect.DerbyDialect
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+game-service:
+  teamConfigs:
+    -
+      name: Orange
+      color: orange
+      cred: citrus
+    -
+      name: Green
+      color: green
+      cred: grass
+    -
+      name: Blue
+      color: blue
+      cred: sky
+    -
+      name: Pink
+      color: pink
+      cred: kirby
+    -
+      name: Purple
+      color: purple
+      cred: grape
+    -
+      name: Red
+      color: red
+      cred: cherry
+    

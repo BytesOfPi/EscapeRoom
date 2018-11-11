@@ -1,0 +1,7 @@
+Randomize logged in kids
+no more than x to a team
+Admin screen shows players
+Admin can rename / kick players
+Winner screen
+admin can stop game
+
