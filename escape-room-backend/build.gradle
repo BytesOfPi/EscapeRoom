@@ -24,6 +24,13 @@ repositories {
 	mavenCentral()
 }
 
+processResources {
+	//from ('src/frontend') {
+	from ('../escape-room-frontend/build') {
+		include '**/*.*'
+			into 'static'
+	}
+}
 
 bootJar {
 	baseName = 'EscapeRoomBackend'
@@ -35,6 +42,7 @@ bootJar {
 					'Source-Compatibility': project.sourceCompatibility,
 					'Target-Compatibility': project.targetCompatibility
 	}
+	
 	launchScript()
 }
 

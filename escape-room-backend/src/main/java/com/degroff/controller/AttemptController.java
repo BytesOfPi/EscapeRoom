@@ -15,7 +15,7 @@ import com.degroff.dao.service.GameService;
 import com.degroff.model.GameStatusResponse;
 
 @RestController
-@RequestMapping( "attempt" )
+@RequestMapping( "api/attempt" )
 public class AttemptController
     {
 

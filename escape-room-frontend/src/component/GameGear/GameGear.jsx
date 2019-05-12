@@ -47,7 +47,13 @@ class GameGear extends React.Component {
 		const submit = this.findFlag(this.props.teamSubmit, searchKey);
 		const success = this.findFlag(this.props.teamCorrect, searchKey);
 		const fail = this.findFlag(this.props.teamFail, searchKey);
-        
+		
+		const imgStyle = {
+			overflow: 'auto',
+			'max-width': '800px',
+			'max-height': '600px'
+		};
+
 		let gearClass = 'card game_gear';
 		let btnClass = 'btn btn-primary';
 		if( success ) {
@@ -69,7 +75,13 @@ class GameGear extends React.Component {
 			<div className="card-body">
 				<h4 className="card-title">{this.state.title}</h4>
 				<div className="card-text">
-					<label>{this.state.text}</label>
+					{
+//<div style=" overflow: auto;max-width: 800px; max-height: 600px;"><img src={this.state.text} alt=""/></div>
+					// <div style={imgStyle}><img src={'http://localhost:8080/images/001.jpg'} alt=""/></div>
+//<label>{this.state.text}</label>
+					}
+					<div style={imgStyle}><img src={this.state.text} alt=""/></div>
+					<h6>Answer</h6>
 					<textarea className="form-control" value={this.state.taValue} onChange={this.handleChangeTA}></textarea>
 					<button type="button" className={btnClass}  disabled={success || submit} onClick={this.handleSubmit}>Submit</button>
 				</div>

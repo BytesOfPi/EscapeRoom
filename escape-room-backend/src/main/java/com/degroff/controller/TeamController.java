@@ -18,7 +18,7 @@ import com.degroff.model.PlayerStatusResponse;
 import com.degroff.model.TeamStatusResponse;
 
 @RestController
-@RequestMapping( "team" )
+@RequestMapping( "api/team" )
 public class TeamController
     {
 

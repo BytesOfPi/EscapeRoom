@@ -16,7 +16,7 @@ import com.degroff.model.GameLoginRequest;
 import com.degroff.model.GameStatusResponse;
 
 @RestController
-@RequestMapping( "game" )
+@RequestMapping( "api/game" )
 public class GameController
     {
 
